@@ -1,10 +1,10 @@
 private val dnaToRnaMap = hashMapOf(
-        "C" to "G",
-        "G" to "C",
-        "T" to "A",
-        "A" to "U"
+        'C' to "G",
+        'G' to "C",
+        'T' to "A",
+        'A' to "U"
 )
 
-fun transcribeToRna(dna: String): String = dna.map{ transcribeSingleDnaToRna(it.toString())}.joinToString("")
+fun transcribeToRna(dna: String): String = dna.toCharArray().joinToString("") { singleDnaToRna(it)}
 
-private fun transcribeSingleDnaToRna(dna: String): String = dnaToRnaMap[dna] ?: "(no mapping for $dna)"
+private fun singleDnaToRna(dna: Char): String = dnaToRnaMap[dna] ?: "(no mapping for $dna)"
