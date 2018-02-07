@@ -1,6 +1,9 @@
-package Pangram
+object Pangram {
+    private val alphabetSize = ('a'..'z').count()
 
-fun isPangram(pangram : String) :Boolean {
-    return (('a'..'z').toList().minus(pangram.toLowerCase().toList())).isEmpty()
+    fun isPangram(pangram: String): Boolean = pangram
+            .toLowerCase()
+            .toSet()
+            .filter(Char::isLetter).size == alphabetSize
 }
 
