@@ -1,0 +1,8 @@
+kotlin/*/.gradle/
+kotlin/*/.idea/
+kotlin/*/build/
+kotlin/*/gradle/
+kotlin/*/out/
+kotlin/*/*.iml
+kotlin/*/gradlew*
+kotlin/*/**/.keep
