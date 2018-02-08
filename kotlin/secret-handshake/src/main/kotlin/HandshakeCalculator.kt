@@ -2,7 +2,7 @@ class HandshakeCalculator {
 
     companion object {
 
-        private val mapBinaryPlaceToSignal: Map<Int, Signal> = mapOf(
+        private val mapBinaryPlaceToSignal = mapOf(
                 0 to Signal.WINK,
                 1 to Signal.DOUBLE_BLINK,
                 2 to Signal.CLOSE_YOUR_EYES,
@@ -10,21 +10,18 @@ class HandshakeCalculator {
         )
 
         fun calculateHandshake(i: Int): List<Signal> {
-            val binList = intToBinList(i)
-            return mapBinaryPlacesToSignals(binList)
+            val binDigits = intToBinDigitValues(i)
+            return mapBinaryPlacesToSignals(binDigits)
         }
 
-        private fun mapBinaryPlacesToSignals(binList: List<Int>): List<Signal> {
-            val baseList = (0..3).mapNotNull { if (binList[it] == 1) mapBinaryPlaceToSignal[it] else null }
-            if (binList[4] == 1) return baseList.asReversed()
-            else                 return baseList
+        private fun mapBinaryPlacesToSignals(binDigits: List<Int>): List<Signal> {
+            val baseList = (0..3).mapNotNull { if (binDigits[it] != 0) mapBinaryPlaceToSignal[it] else null }
+            if (binDigits[4] != 0) return baseList.asReversed()
+            else                   return baseList
         }
 
-
-        private fun intToBinList(num: Int): List<Int> {
-            var ret = mutableListOf<Int>()
-            var workingNum = num
-            return (1..5).toList().mapTo(ret, { _: Int -> val r = (workingNum % 2); workingNum /= 2; r })
+        private fun intToBinDigitValues(num: Int): List<Int> {
+            return listOf(1,2,4,8,16).mapTo(mutableListOf(), { powerOfTwo -> num and powerOfTwo })
         }
 
     }
