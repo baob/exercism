@@ -10,20 +10,20 @@ class HandshakeCalculator {
         )
 
         fun calculateHandshake(i: Int): List<Signal> {
-            val binDigits = intToBinDigitValues(i)
-            return mapBinaryPlacesToSignals(binDigits)
+            val binaryPlaces = intToBinaryPlaceValues(i)
+            return mapBinaryPlacesToSignals(binaryPlaces)
         }
 
-        private fun mapBinaryPlacesToSignals(binDigits: List<Int>): List<Signal> {
-            val baseList = (0..3).mapNotNull { if (binDigits[it] != 0) mapBinaryPlaceToSignal[it] else null }
-            if (binDigits[4] != 0) return baseList.asReversed()
-            else                   return baseList
+        private fun mapBinaryPlacesToSignals(binaryPlaces: List<Int>): List<Signal> {
+            val baseList = (0..3).mapNotNull { if (binaryPlaces[it] != 0) mapBinaryPlaceToSignal[it] else null }
+            return if (binaryPlaces[4] != 0) baseList.asReversed() else baseList
         }
 
-        private fun intToBinDigitValues(num: Int): List<Int> {
-            return listOf(1,2,4,8,16).mapTo(mutableListOf(), { powerOfTwo -> num and powerOfTwo })
+        private fun intToBinaryPlaceValues(num: Int): List<Int> {
+            return powersOfTwo.mapTo(mutableListOf(), { powerOfTwo -> num and powerOfTwo })
         }
 
+        private val powersOfTwo = listOf(1, 2, 4, 8, 16)
     }
 
 }
