@@ -1,8 +1,9 @@
 object ScrabbleScore {
 
-    fun scoreWord(word : String) = word.fold(0) { acc, letter -> acc + scoreLetter(letter.toString()) }
+    fun scoreWord(word : String) = word.sumBy { it.toString().run(::scoreLetter) }
 
-    private fun scoreLetter(letter : String): Int = mapOfLettersWithScore[letter.toUpperCase()] ?: 0
+    private fun scoreLetter(letter : String): Int =
+            mapOfLettersWithScore[letter.toUpperCase()] ?: 0
 
     private val mapOfLetterListsWithScore = mapOf(
             "A, E, I, O, U, L, N, R, S, T"      to 1,
@@ -14,11 +15,14 @@ object ScrabbleScore {
             "Q, Z"                              to 10
     )
 
-    private val mapOfLettersWithScore : MutableMap<String, Int> = mapOfLetterListsWithScore.entries.fold(mutableMapOf())
-        { baseMap , lettersToScore ->
-            lettersToScore.key.split(' ', ',').forEach { letter -> baseMap[letter] = lettersToScore.value }
-            baseMap
-        }
+    private val mapOfLettersWithScore: MutableMap<String, Int> =
+            mapOfLetterListsWithScore.entries.fold(mutableMapOf())
+            { baseMap, lettersToScore ->
+                val letterList = lettersToScore.key.split(' ', ',')
+                val letterValue = lettersToScore.value
+                letterList.forEach { baseMap[it] = letterValue }
+                baseMap
+            }
 
 }
 
