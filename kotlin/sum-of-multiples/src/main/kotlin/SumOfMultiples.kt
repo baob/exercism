@@ -7,5 +7,4 @@ object SumOfMultiples {
 
     private fun listForOneMultiple(limit: Int, multiple: Int) =
             (multiple until limit step multiple)
-                    .takeWhile { it < limit }
 }
