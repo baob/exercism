@@ -1,9 +1,11 @@
 object SumOfMultiples {
     fun sum(multiples: Set<Int>, limit: Int): Int =
-        multiples.flatMap { multiple -> setForOneMultiple(limit, multiple) }.toSet().sum()
+            multiples
+                    .flatMap { listForOneMultiple(limit, it) }
+                    .distinct()
+                    .sum()
 
-    private fun setForOneMultiple(limit: Int, multiple: Int): Set<Int> {
-        val endOfRange = (limit - 1) / multiple
-        return (1..endOfRange).map { it * multiple }.toSet()
-    }
+    private fun listForOneMultiple(limit: Int, multiple: Int) =
+            (multiple until limit step multiple)
+                    .takeWhile { it < limit }
 }
