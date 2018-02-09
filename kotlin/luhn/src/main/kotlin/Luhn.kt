@@ -13,19 +13,19 @@ class Luhn {
                     .reversed()
                     .mapIndexed{ index, digit -> digit.luhnComponent(index) }
                     .sum()
-                    .let{ it % 10 == 0 }
+                    .rem(10) == 0
         }
     }
 }
 
-private fun Int.isEven(): Boolean = (this.rem(2) == 0)
+private val Int.isEven: Boolean get() = this % 2 == 0
 
-private fun Int.luhnComponentIfOdd() = if (2 * this > 9) 2 * this - 9 else 2 * this
+private val Int.luhnComponentIfOdd get() = if (2 * this > 9) 2 * this - 9 else 2 * this
 
-private fun Char.digitToInt() = toString().toInt()
+private val Char.digitToInt get() = toString().toInt()
 
 private fun Char.luhnComponent(index: Int) =
-        if (index.isEven()) digitToInt()
-        else                digitToInt().luhnComponentIfOdd()
+        if (index.isEven) digitToInt
+        else              digitToInt.luhnComponentIfOdd
 
 
